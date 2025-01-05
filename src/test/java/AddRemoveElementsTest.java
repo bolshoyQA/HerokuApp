@@ -38,8 +38,6 @@ public class AddRemoveElementsTest {
         int count = deleteButtons.size();
         Assert.assertEquals(count, 1);
     }
-
-
     @AfterMethod (alwaysRun = true)
     public void quit() {
         driver.quit();

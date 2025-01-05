@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 import java.util.List;
@@ -25,29 +26,27 @@ public class CheckboxTest {
             driver = new ChromeDriver(options);
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
-
-
-
         @Test
+
         public void checkboxes() {
+            SoftAssert softAssert = new SoftAssert();
             driver.get("https://the-internet.herokuapp.com/checkboxes");
             boolean box1 = driver.findElement(By.xpath("/html/body/div[2]/div/div/form/input[1]")).isSelected();
-            Assert.assertFalse(box1);
+            softAssert.assertFalse(box1,"Первый чекбокс должен быть не отмечен");
             driver.findElement(By.xpath("/html/body/div[2]/div/div/form/input[1]")).click();
             boolean box1changed = driver.findElement(By.xpath("/html/body/div[2]/div/div/form/input[1]")).isSelected();
-            Assert.assertTrue(box1changed);
+            softAssert.assertTrue(box1changed, "Первый чекбокс должен быть отмечен после клика");
             boolean box2 = driver.findElement(By.xpath("/html/body/div[2]/div/div/form/input[2]")).isSelected();
-            Assert.assertTrue(box2);
+            softAssert.assertTrue(box2, "Второй чекбокс должен быть отмечен");
             driver.findElement(By.xpath("/html/body/div[2]/div/div/form/input[2]")).click();
             boolean box2changed = driver.findElement(By.xpath("/html/body/div[2]/div/div/form/input[2]")).isSelected();
-            Assert.assertFalse(box2changed);
+            Assert.assertFalse(box2changed,"Второй чекбокс должен быть не отмечен после клика");
+            softAssert.assertAll();
         }
 
             @AfterMethod(alwaysRun = true)
         public void quit() {
             driver.quit();
-
-
         }
     }
 

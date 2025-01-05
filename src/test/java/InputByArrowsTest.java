@@ -25,12 +25,8 @@ public class InputByArrowsTest {
             driver = new ChromeDriver(options);
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
-
-
-
         @Test
         public void inputsValidation () {
-
             driver.get("https://the-internet.herokuapp.com/inputs");
             driver.findElement(By.xpath("/html/body/div[2]/div/div/div/div/input")).sendKeys("It's a number field");
             String negative = (driver.findElement(By.xpath("/html/body/div[2]/div/div/div/div/input")).getText());
@@ -42,15 +38,10 @@ public class InputByArrowsTest {
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
             int result = Integer.parseInt(((driver.findElement(By.xpath("/html/body/div[2]/div/div/div/div/input")).getAttribute("value"))));
             Assert.assertEquals(result, 100);
-
         }
 
             @AfterMethod(alwaysRun = true)
         public void quit() {
             driver.quit();
-
-
         }
     }
-
-
